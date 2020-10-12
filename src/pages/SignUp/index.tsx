@@ -15,13 +15,16 @@ import Button from '../../components/Button';
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const handleSubmit = useCallback(async (data: object) => {
     try {
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome obrigatório'),
-        email: Yup.string().required('E-mail obrigatório').email(),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail valido'),
         password: Yup.string().min(6, 'Minimo de 6 caracteres'),
       });
 
